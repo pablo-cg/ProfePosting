@@ -2,25 +2,28 @@ package profe.posting.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table
-@Data
+@Table(name = "comentario")
+@Getter
+@Setter
 public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "alumno_id")
-    private Long idAlumno;
+    @Column(name = "curso_id")
+    private Long idCurso;
 
-    @Column(name = "avisocurso_id")
-    private Long idAvisoCurso;
+    @Column(name = "usuarioalumno_id")
+    private Long idUsuarioAlumno;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date hora;
@@ -30,13 +33,11 @@ public class Comentario {
     @Column(name = "esvalido")
     private Boolean esValido;
 
-    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "alumno_id", nullable = false, insertable = false, updatable = false)
-    private Alumno alumno;
+    @JoinColumn(name = "usuarioalumno_id", updatable = false, insertable = false, nullable = false)
+    private Usuario usuarioAlumno;
 
-    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "avisocurso_id", updatable = false, insertable = false, nullable = false)
-    private AvisoCurso avisoCurso;
+    @JoinColumn(name = "curso_id", updatable = false, insertable = false, nullable = false)
+    private Curso curso;
 }

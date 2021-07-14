@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/fragments :: HeaderMeta"></head>
+<body>
+<!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
+<div th:replace="fragments/fragments :: navBar"></div>
+
+<div class="container mt-3">
+<!--    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eliminar">-->
+<!--        Launch demo modal-->
+<!--    </button>-->
+<!--    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--    <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="modalEliminar" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="modalEliminar">Modal title</h5>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    ...-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                    <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <div class="p-5 mb-4 navColor rounded-3">
+        <div class="container-fluid row">
+            <div class="col-md-6">
+                <img src="../static/img/profeLogo.png" th:src="@{/img/profelogo.png}"
+                     class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bold text-light">Hola! <i class="fas fa-smile-beam"></i><i class="fas fa-hand-peace"></i></h1>
+                <p class="col-md-8 fs-4 text-light">ProfePosting es una vitrina virtual donde podrás publicar cursos particulares y recibir comentarios y clasificaciones de tus alumnos</p>
+                <button class="btn btn-primary btn-lg" type="button">Registrate aquí! <i class="fas fa-graduation-cap"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="fragments/fragments :: footer"></footer>
+</body>

@@ -2,22 +2,24 @@ package profe.posting.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "avisocurso")
-@Data
-public class AvisoCurso {
+@Table(name = "curso")
+@Getter
+@Setter
+public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "profesor_id")
-    private Long idProfesor;
+    @Column(name = "usuarioprofesor_id")
+    private Long idUsuarioProfesor;
 
     @Column(name = "areaaprendizaje_id")
     private Long idAreaAprendizaje;
@@ -34,18 +36,16 @@ public class AvisoCurso {
     @JoinColumn(name = "areaaprendizaje_id", insertable = false, updatable = false, nullable = false)
     private AreaAprendizaje areaAprendizaje;
 
-    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "profesor_id", insertable = false, updatable = false, nullable = false)
-    private Profesor profesor;
+    @JoinColumn(name = "usuarioprofesor_id", insertable = false, updatable = false, nullable = false)
+    private Usuario usuarioProfesor;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "avisoCurso")
+    @OneToMany(mappedBy = "curso")
     private List<Comentario> comentarios;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "avisoCurso")
-    private List<ListaAlumno> listaAlumnos;
-
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "curso")
+//    private List<ListaAlumno> listaAlumnos;
 
 }

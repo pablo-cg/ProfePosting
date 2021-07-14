@@ -6,40 +6,47 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import profe.posting.model.AvisoCurso;
+import profe.posting.model.Curso;
 import profe.posting.service.AreaAprendizajeService;
-import profe.posting.service.AvisoCursoService;
+import profe.posting.service.CursoService;
 import profe.posting.utils.Utilidades;
 
 @Controller
 @RequestMapping()
-public class CursosProfesorController {
+public class CursosController {
 
     private final AreaAprendizajeService areaAprendizajeService;
-    private final AvisoCursoService avisoCursoService;
+    private final CursoService cursoService;
 
-    public CursosProfesorController(AreaAprendizajeService areaAprendizajeService, AvisoCursoService avisoCursoService) {
+    public CursosController(AreaAprendizajeService areaAprendizajeService, CursoService cursoService) {
         this.areaAprendizajeService = areaAprendizajeService;
-        this.avisoCursoService = avisoCursoService;
+        this.cursoService = cursoService;
+    }
+
+    @GetMapping("/profesor/misCursos")
+    public String MisCursos(Model model) {
+        var cursos = Utilidades.calcularPuntuacion(cursoService.obtenerTodos());
+        model.addAttribute("cursos", cursos);
+        return "MisCursos";
     }
 
     @GetMapping("/profesor/nuevoCurso")
     public String nuevoCurso(Model model) {
-        model.addAttribute("cursoNuevo", new AvisoCurso());
+        model.addAttribute("cursoNuevo", new Curso());
         model.addAttribute("areas", areaAprendizajeService.listarAreas());
         return "NuevoCurso";
     }
 
     @PostMapping("/profesor/agregarCurso")
-    public String agregarCurso(@ModelAttribute("cursoNuevo") AvisoCurso curso) {
-        avisoCursoService.guardarCurso(curso);
+    public String agregarCurso(@ModelAttribute("cursoNuevo") Curso curso) {
+        cursoService.guardarCurso(curso);
         return "redirect:/profesor/misCursos?agregado";
     }
 
     @GetMapping("/profesor/modificarCurso")
     public String modificarCurso(@ModelAttribute("idCurso") Long idCurso, Model model) {
         // obtener curso desde el service
-        AvisoCurso elCurso = avisoCursoService.encontrarCursoPorId(idCurso);
+        Curso elCurso = cursoService.encontrarCursoPorId(idCurso);
         // definir el curso como un atributo del modelo para llenar el formulario
         model.addAttribute("cursoAModificar", elCurso);
         model.addAttribute("areas", areaAprendizajeService.listarAreas());
@@ -48,21 +55,21 @@ public class CursosProfesorController {
     }
 
     @PostMapping("/profesor/actualizarCurso")
-    public String modificaCurso(@ModelAttribute("cursoNuevo") AvisoCurso curso) {
-        avisoCursoService.guardarCurso(curso);
+    public String modificaCurso(@ModelAttribute("cursoNuevo") Curso curso) {
+        cursoService.guardarCurso(curso);
         return "redirect:/profesor/misCursos?modificado";
     }
 
     @PostMapping("/profesor/eliminarCurso")
-    public String eliminarCurso(@ModelAttribute("idCurso") AvisoCurso curso) {
-        avisoCursoService.eliminarCursoPorId(curso.getId());
+    public String eliminarCurso(@ModelAttribute("idCurso") Curso curso) {
+        cursoService.eliminarCursoPorId(curso.getId());
         return "redirect:/profesor/misCursos?eliminado";
     }
 
     @GetMapping("profesor/comentariosCurso")
     public String verComentariosCurso(@ModelAttribute("idCurso") Long idCurso, Model model) {
-        AvisoCurso elCurso = Utilidades.calcularPuntuacion(avisoCursoService.encontrarCursoPorId(idCurso));
-        //AvisoCurso elCurso = avisoCursoService.encontrarCursoPorId(idCurso);
+        Curso elCurso = Utilidades.calcularPuntuacion(cursoService.encontrarCursoPorId(idCurso));
+        //Curso elCurso = cursoService.encontrarCursoPorId(idCurso);
         model.addAttribute("curso", elCurso);
         return "ComentariosCurso";
     }

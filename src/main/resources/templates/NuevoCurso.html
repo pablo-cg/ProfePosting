@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cursos</title>
-    <!-- Bootstrap -->
-    <link href="../static/css/bootstrap.min.css"
-          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link href="../static/css/ProfePostingGenStyle.css"
-          th:href="@{/css/ProfepostingGenStyle.css}" rel="stylesheet">
-    <script  src="../static/js/bootstrap.min.js" th:src="@{../static/js/bootstrap.min.js}" ></script>
-
-</head>
+<head th:insert="fragments/fragments :: HeaderMeta"></head>
 <body>
-<div th:replace="fragments/topNavProfe :: navBarProfe"></div>
-<br>
+<!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
+<div th:replace="fragments/fragments :: navBar"></div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-3">
@@ -21,7 +12,7 @@
             <form th:action="@{/profesor/agregarCurso}" method="post" th:object="${cursoNuevo}">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="form-floating">
-                    <input class="form-control" id="idProfe" th:field="*{idProfesor}"/>
+                    <input class="form-control" id="idProfe" th:field="*{idUsuarioProfesor}"/>
                     <label for="idProfe">ID Profe</label>
                 </div>
                 <br>

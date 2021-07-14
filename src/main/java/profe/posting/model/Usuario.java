@@ -1,20 +1,20 @@
 package profe.posting.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.List;
 
 @Entity
-@Table(name = "profesor")
-@Data
-public class Profesor {
+@Getter
+@Setter
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "idusuario")
+    private Long idUsuario;
 
     private String nombre;
 
@@ -24,17 +24,14 @@ public class Profesor {
     @Column(name = "apellidomaterno")
     private String apellidoMaterno;
 
+    private String telefono;
+
     @Email
     private String correo;
 
     private String contrasena;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "profesor")
-    private List<AvisoCurso> avisoCursos;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "profesor")
-    private List<ListaAlumno> listaAlumnos;
+    public Usuario() {
+    }
 
 }

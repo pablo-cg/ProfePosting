@@ -2,13 +2,16 @@ package profe.posting.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "areaaprendizaje")
-@Data
+@Getter
+@Setter
 public class AreaAprendizaje {
 
     @Id
@@ -19,8 +22,11 @@ public class AreaAprendizaje {
 
     private String imgurl;
 
-    @JsonManagedReference
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "areaAprendizaje")
+//    private List<AvisoCurso> avisoCursos;
+
     @OneToMany(mappedBy = "areaAprendizaje")
-    private List<AvisoCurso> avisoCursos;
+    private List<Curso> cursos;
 
 }

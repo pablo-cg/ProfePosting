@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/fragments :: HeaderMeta">
-</head>
+<head th:insert="fragments/fragments :: HeaderMeta"></head>
 <body>
-<div th:replace="fragments/topNavProfe :: navBarProfe"></div>
-<br>
+<!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
+<div th:replace="fragments/fragments :: navBar"></div>
+
 <div class="container pb-3">
     <div class="row">
         <div class="col-md-6">
             <h1>Modificar Curso</h1>
             <form th:action="@{/profesor/actualizarCurso}" method="post" th:object="${cursoAModificar}">
-                <input type="hidden" th:field="*{idProfesor}" id="idProfe"/>
+                <input type="hidden" th:field="*{idUsuarioProfesor}" id="idProfe"/>
+                <input type="hidden" th:field="*{id}" id="idCurso"/>
                 <div class="form-floating">
                     <input class="form-control disabled" id="nombreProfe"
-                           th:value="${cursoAModificar.getProfesor().getNombre() +' '+cursoAModificar.getProfesor().getApellidoPaterno()}"
+                           th:value="${cursoAModificar.getUsuarioProfesor().getNombre() +' '+cursoAModificar.getUsuarioProfesor().getApellidoPaterno()}"
                            disabled/>
                     <label for="nombreProfe">Profesor</label>
                 </div>
@@ -69,7 +70,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" th:text="${cursoAModificar.getAreaAprendizaje().getNombre()}"></li>
                         <li class="list-group-item"
-                            th:text="${cursoAModificar.getProfesor().getNombre() +' '+cursoAModificar.getProfesor().getApellidoPaterno()}"></li>
+                            th:text="${cursoAModificar.getUsuarioProfesor().getNombre() +' '+cursoAModificar.getUsuarioProfesor().getApellidoPaterno()}"></li>
                     </ul>
 
                     <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="modalEliminar"
