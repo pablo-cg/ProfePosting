@@ -22,6 +22,11 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    public List<Curso> buscarCursoPorTituloOArea(String texto) {
+        return cursoRepository.buscarCursoPorTituloOArea(texto);
+    }
+
+    @Override
     public void guardarCurso(Curso nuevoCurso) {
         cursoRepository.save(nuevoCurso);
     }

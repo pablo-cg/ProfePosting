@@ -73,4 +73,11 @@ public class CursosController {
         model.addAttribute("curso", elCurso);
         return "ComentariosCurso";
     }
+
+    @GetMapping("/cursos/buscar")
+    public String buscarCursos(@ModelAttribute("texto") String texto, Model model) {
+        var cursos = Utilidades.calcularPuntuacion(cursoService.buscarCursoPorTituloOArea("*"+texto+"*"));
+        model.addAttribute("cursos", cursos);
+        return "MisCursos";
+    }
 }

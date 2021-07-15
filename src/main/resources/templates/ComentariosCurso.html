@@ -5,7 +5,7 @@
 <!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
 <div th:replace="fragments/fragments :: navBar"></div>
 
-<div class="container pb-3">
+<div class="container pb-3 pt-3">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -46,35 +46,44 @@
     </div>
     <hr>
     <div class="row">
-        <p>
-          PONER CAJA DE COMENTARIOS CON FORMULARIO
-        </p>
-        <div class="alert alert-info" role="alert" th:if="${curso.getComentarios().size()==0}">
-            <i class="fal fa-frown"></i> No hay comentarios
-        </div>
-        <div class="col-md-12 pb-2" th:each="comentario : ${curso.getComentarios()}">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-clock"></i> <b>Comentado el: </b>
-                    <text th:text="${#dates.format(comentario.getHora(),'dd-MMM-yy')}"></text>
-                    a las
-                    <text th:text="${#dates.format(comentario.getHora(),'hh:mm')}"></text>
+        <div class="col-md-6">
+            <h5 class="mb-3">Deja un comentario</h5>
+            <form th:action="@{/curso/comentar}" class="pb-3">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px"></textarea>
+                    <label for="floatingTextarea2">¿Qué opinas del curso?</label>
                 </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <div class="row">
-                            <div class="col-md-6"><h5
-                                    th:text="${comentario.getUsuarioAlumno().getNombre()} + ' ' + ${comentario.getUsuarioAlumno().getApellidoPaterno()}"></h5>
+                <button type="submit" class="btn btn-primary">Comentar</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-info" role="alert" th:if="${curso.getComentarios().size()==0}">
+                <i class="fal fa-frown"></i> No hay comentarios
+            </div>
+            <div class="col-md-12 pb-2" th:each="comentario : ${curso.getComentarios()}">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-clock"></i> <b>Comentado el: </b>
+                        <text th:text="${#dates.format(comentario.getHora(),'dd-MMM-yy')}"></text>
+                        a las
+                        <text th:text="${#dates.format(comentario.getHora(),'hh:mm')}"></text>
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <div class="row">
+                                <div class="col-md-6"><h5
+                                        th:text="${comentario.getUsuarioAlumno().getNombre()} + ' ' + ${comentario.getUsuarioAlumno().getApellidoPaterno()}"></h5>
+                                </div>
+                                <div class="col-md-6 text-end"><p th:inline="text">
+                                    [[${#numbers.formatDecimal(comentario.getPuntuacion(),1,1,'POINT')}]]
+                                    <i class="fas fa-star"></i>
+                                </p></div>
                             </div>
-                            <div class="col-md-6 text-end"><p th:inline="text">
-                                [[${#numbers.formatDecimal(comentario.getPuntuacion(),1,1,'POINT')}]]
-                                <i class="fas fa-star"></i>
-                            </p></div>
-                        </div>
-                        <footer class="blockquote-footer"><b>Dice:</b> <cite title="Source Title"
-                                                                             th:text="${comentario.getComentario()}"></cite>
-                        </footer>
-                    </blockquote>
+                            <footer class="blockquote-footer"><b>Dice:</b> <cite title="Source Title"
+                                                                                 th:text="${comentario.getComentario()}"></cite>
+                            </footer>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
         </div>

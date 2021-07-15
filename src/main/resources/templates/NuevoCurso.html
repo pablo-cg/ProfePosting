@@ -22,7 +22,7 @@
                 </div>
                 <br>
                 <div class="form-floating">
-                    <textarea class="form-control" id="detalle" rows="50" maxlength="20000"
+                    <textarea class="form-control" id="detalle" style="height: 200px" maxlength="20000"
                               th:field="*{detalles}"></textarea>
                     <label for="detalle">Detalles</label>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
                 <br>
                 <div class="form-floating">
-                    <select id="areaAprendizaje" class="form-select" th:field="*{idAreaAprendizaje}">
+                    <select id="areaAprendizaje" class="form-select" th:field="*{idAreaAprendizaje}" style="height: 60px">
                         <option th:each="area: ${areas}" th:value="${area.getId()}"
                                 th:text="${area.getNombre()}"></option>
                     </select>

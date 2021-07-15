@@ -7,6 +7,8 @@ import java.util.List;
 public interface CursoService {
     List<Curso> obtenerTodos();
 
+    List<Curso> buscarCursoPorTituloOArea(String texto);
+
     void guardarCurso(Curso nuevoCurso);
 
     Curso encontrarCursoPorId(Long idCurso);
