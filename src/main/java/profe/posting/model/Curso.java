@@ -44,8 +44,4 @@ public class Curso {
     @OneToMany(mappedBy = "curso")
     private List<Comentario> comentarios;
 
-//    @JsonManagedReference
-//    @OneToMany(mappedBy = "curso")
-//    private List<ListaAlumno> listaAlumnos;
-
 }

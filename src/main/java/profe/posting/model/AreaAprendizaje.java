@@ -22,10 +22,6 @@ public class AreaAprendizaje {
 
     private String imgurl;
 
-//    @JsonManagedReference
-//    @OneToMany(mappedBy = "areaAprendizaje")
-//    private List<AvisoCurso> avisoCursos;
-
     @OneToMany(mappedBy = "areaAprendizaje")
     private List<Curso> cursos;
 
