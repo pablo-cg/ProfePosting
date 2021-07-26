@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/fragments :: HeaderMeta"></head>
+<body>
+<!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
+<div th:replace="fragments/fragments :: navBar"></div>
+<div class="container pt-3">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/login}"><i class="fas fa-user-check"></i> Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/usuario/registro}"><i class="fas fa-user-plus"></i> ¿No tienes una cuenta?</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="correo" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">Tu email está seguro con nosotros.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="contrasena" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasena">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="recordar">
+                    <label class="form-check-label" for="recordar">Recuerdame</label>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

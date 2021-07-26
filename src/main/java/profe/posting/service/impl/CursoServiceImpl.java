@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import profe.posting.model.Curso;
 import profe.posting.repository.CursoRepository;
 import profe.posting.service.CursoService;
-
 import java.util.List;
 
 @Service

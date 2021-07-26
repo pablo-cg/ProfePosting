@@ -20,33 +20,22 @@ public class HomeController {
 
     @GetMapping()
     public String Index(Model model) {
-//        var cursos = Utilidades.calcularPuntuacion(cursoService.obtenerTodos());
-//        model.addAttribute("cursos", cursos);
         return "Index";
     }
 
-    @GetMapping("/alumno/listaCursos")
-    public String ListaCursos(Model model) {
-        var cursos = Utilidades.calcularPuntuacion(cursoService.obtenerTodos());
-        model.addAttribute("cursos", cursos);
-        return "ListaCursos";
+    @GetMapping("/login")
+    public String mostrarInicioSesion() {
+        return "Login";
     }
 
-
+    @GetMapping("/loginAlt")
+    public String mostrarInicioSesionAlt() {
+        return "IniciarSesion";
+    }
 
     @RequestMapping("/buscar")
     public String buscarCursos(@RequestParam(value = "busqueda") String cursoABuscar){
         return "ListaCursos";
     }
 
-/*
-    TODO: hacer el metodo con la query en el repository
-     redireccionar a la lista de cursos filtrados
-     hacer la parte de los comentarios
-     lo de el login se podria dejar pora la ultima semana
-     query:
-     SELECT * FROM profepostingbd.avisocurso
-     where match (titulo) against ('*quimi*' in boolean mode)
-     or AreaAprendizaje_id in (select id from areaaprendizaje where match (nombre) against ('*quimi*' in boolean mode))
-*/
 }

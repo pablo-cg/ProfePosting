@@ -1,7 +1,6 @@
 package profe.posting.service;
 
 import profe.posting.model.Curso;
-
 import java.util.List;
 
 public interface CursoService {
