@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="HeaderMeta">
     <title>ProfePosting</title>
     <meta charset="UTF-8" content="text/html" http-equiv="Content-Type">
@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js" th:src="@{/js/jquery-3.6.0.min.js}"></script>
 </head>
 <body>
-<nav th:fragment="navBar" class="navbar navbar-expand-lg navbar-dark navColor">
+<nav th:fragment="navBar" class="navbar navbar-expand-lg navbar-dark navColor sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#" th:href="@{/}">
             <img src="../static/img/profeLogo.png" th:src="@{/img/profelogo.png}" alt="" height="30"
@@ -30,14 +30,26 @@
 <!--                <li class="nav-item">-->
 <!--                    <a class="nav-link" href="#">Link</a>-->
 <!--                </li>-->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-graduation-cap"></i> Cursos
+                        <i class="fas fa-graduation-cap"></i> Menú Cursos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" th:href="@{/profesor/misCursos}"><i class="fas fa-list-ol"></i> Mis Cursos</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" th:href="@{/profesor/nuevoCurso}"><i class="fas fa-plus"></i> Nuevo Curso</a></li>
+                        <li sec:authorize="hasAnyRole('ROLE_PROFESOR')"><a class="dropdown-item" href="#" th:href="@{/cursos}"><i class="fas fa-list-ol"></i> Mis Cursos</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/cursos/todos}"><i class="fas fa-list-ol"></i> Todos los Cursos</a></li>
+                        <li sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')"><hr class="dropdown-divider"></li>
+                        <li sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')"><a class="dropdown-item" href="#" th:href="@{/cursos/nuevoCurso}"><i class="fas fa-plus"></i> Nuevo Curso</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-graduation-cap"></i> Menú Administrador
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+                        <li><a class="dropdown-item" href="#" th:href="@{/cursos}"><i class="fas fa-list-ol"></i> Mis Cursos</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/cursos/todos}"><i class="fas fa-list-ol"></i> Todos los Cursos</a></li>
+                        <li sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')"><hr class="dropdown-divider"></li>
+                        <li sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')"><a class="dropdown-item" href="#" th:href="@{/cursos/nuevoCurso}"><i class="fas fa-plus"></i> Nuevo Curso</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -45,16 +57,17 @@
                 </li>
             </ul>
             <form class="d-flex" th:action="@{/cursos/buscar}">
-                    <input class="form-control me-2" type="search" placeholder="Busca un Curso" aria-label="Search" id="texto" name="texto">
-                    <button class="btn btn-outline-light text-nowrap" type="submit"><i class="fas fa-search"></i> Buscar</button> |
-                    <a th:href="@{/login}" class="btn btn-outline-info text-nowrap"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                    <input class="form-control me-2" type="search" placeholder="Busca un Curso" aria-label="Search" id="texto" name="texto" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-outline-light text-nowrap" type="submit" sec:authorize="isAuthenticated()"><i class="fas fa-search"></i> Buscar</button> |
+                    <a th:href="@{/login}" class="btn btn-outline-info text-nowrap" sec:authorize="!isAuthenticated()"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                    <a th:href="@{/logout}" class="btn btn-outline-danger text-nowrap" sec:authorize="isAuthenticated()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
             </form>
             </div>
     </div>
 </nav>
 
 
-<footer th:fragment="footer" class="footer mt-6 py-3 dark navColor text-center fixed-bottom">
+<footer th:fragment="footer" class="footer mt-6 py-3 dark navColor text-center bottomNav">
   <div class="container">
     <span class="text-muted">&copy; ProfePosting</span>
   </div>

@@ -21,6 +21,11 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    public List<Curso> obtenerCursoPorIdProfesor(Long idProfesor) {
+        return cursoRepository.findAllByIdUsuarioProfesor(idProfesor);
+    }
+
+    @Override
     public List<Curso> buscarCursoPorTituloOArea(String texto) {
         return cursoRepository.buscarCursoPorTituloOArea(texto);
     }

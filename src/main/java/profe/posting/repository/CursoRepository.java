@@ -17,4 +17,6 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
             "select id from areaaprendizaje " +
             "where match (nombre) against (:texto in boolean mode))")
     List<Curso> buscarCursoPorTituloOArea(@Param("texto") String texto);
+
+    List<Curso> findAllByIdUsuarioProfesor(Long idUsuarioProfesor);
 }

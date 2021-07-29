@@ -12,13 +12,7 @@ import profe.posting.utils.Utilidades;
 @RequestMapping()
 public class HomeController {
 
-    private final CursoService cursoService;
-
-    public HomeController(CursoService cursoService) {
-        this.cursoService = cursoService;
-    }
-
-    @GetMapping()
+    @GetMapping(value = {"/","/index"})
     public String Index(Model model) {
         return "Index";
     }
@@ -28,14 +22,10 @@ public class HomeController {
         return "Login";
     }
 
-    @GetMapping("/loginAlt")
-    public String mostrarInicioSesionAlt() {
-        return "IniciarSesion";
+    @GetMapping("/forbidden")
+    public String forbidden() {
+        return "Forbidden";
     }
 
-    @RequestMapping("/buscar")
-    public String buscarCursos(@RequestParam(value = "busqueda") String cursoABuscar){
-        return "ListaCursos";
-    }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="fragments/fragments :: HeaderMeta"></head>
 <body>
 <!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
@@ -11,12 +11,12 @@
         <div class="col-md-6">
             <h1>Cursos</h1>
         </div>
-        <div class="col-md-6">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary" type="button"><i class="fas fa-table"></i> Ver en formato de tabla
-                </button>
-            </div>
-        </div>
+<!--        <div class="col-md-6" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')">-->
+<!--            <div class="d-grid gap-2 d-md-flex justify-content-md-end">-->
+<!--                <button class="btn btn-primary" type="button"><i class="fas fa-table"></i> Ver en formato de tabla-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
 
@@ -62,8 +62,8 @@
                                     </h5>
                                 </li>
                             </ul>
-                            <a th:href="@{/profesor/comentariosCurso(idCurso=${curso.getId()})}" class="btn btn-info">Ver Comentarios</a>
-                            <a th:href="@{/profesor/modificarCurso(idCurso=${curso.getId()})}" class="btn btn-warning">Modificar</a>
+                            <a th:href="@{/cursos/comentariosCurso(idCurso=${curso.getId()})}" class="btn btn-info">Ver Comentarios</a>
+                            <a th:href="@{/cursos/modificarCurso(idCurso=${curso.getId()})}" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')" >Modificar</a>
                         </div>
                     </div>
                     <br>

@@ -34,8 +34,10 @@ public class DatabaseCmd implements CommandLineRunner {
     void crearRoles(){
         Rol rolAlumno = new Rol(RolNombre.ROLE_ALUMNO);
         Rol rolProfesor = new Rol(RolNombre.ROLE_PROFESOR);
+        Rol rolAdmin = new Rol(RolNombre.ROLE_ADMIN);
         rolService.guardar(rolAlumno);
         rolService.guardar(rolProfesor);
+        rolService.guardar(rolAdmin);
     }
 
     void crearUsuarioAdmin(){
@@ -45,11 +47,9 @@ public class DatabaseCmd implements CommandLineRunner {
         usuario.setApellidoPaterno("1");
         usuario.setCorreo("admin@profeposting.cl");
         usuario.setContrasena(contrasena);
-        Rol rolProfe = rolService.obtenerPorRolNombre(RolNombre.ROLE_PROFESOR).get();
-        Rol rolAlumno = rolService.obtenerPorRolNombre(RolNombre.ROLE_ALUMNO).get();
+        Rol rolAdmin = rolService.obtenerPorRolNombre(RolNombre.ROLE_ADMIN).get();
         Set<Rol> roles = new HashSet<>();
-        roles.add(rolProfe);
-        roles.add(rolAlumno);
+        roles.add(rolAdmin);
         usuario.setRoles(roles);
         usuarioService.crearUsuario(usuario);
     }

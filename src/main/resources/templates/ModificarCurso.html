@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="fragments/fragments :: HeaderMeta"></head>
 <body>
 <!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
 <div th:replace="fragments/fragments :: navBar"></div>
 
-<div class="container pb-3">
-    <div class="row">
+<div class="container pt-3">
+    <div class="row" sec:authorize="hasRole('ROLE_ALUMNO')" th:insert="Forbidden :: Forbidden"></div>
+    <div class="row" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')">
         <div class="col-md-6">
             <h1>Modificar Curso</h1>
-            <form th:action="@{/profesor/actualizarCurso}" method="post" th:object="${cursoAModificar}">
+            <form th:action="@{/cursos/actualizarCurso}" method="post" th:object="${cursoAModificar}">
+                <!--Control contra ataque CSRF-->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <!--Fin Control contra ataque CSRF-->
                 <input type="hidden" th:field="*{idUsuarioProfesor}" id="idProfe"/>
                 <input type="hidden" th:field="*{id}" id="idCurso"/>
                 <div class="form-floating">
@@ -25,7 +29,7 @@
                 </div>
                 <br>
                 <div class="form-floating">
-                    <textarea class="form-control" id="detalle" rows="50" maxlength="20000"
+                    <textarea class="form-control" id="detalle" rows="10" maxlength="20000"
                               th:field="*{detalles}"></textarea>
                     <label for="detalle">Detalles</label>
                 </div>
@@ -44,7 +48,7 @@
                 </div>
                 <br>
                 <div class="mb-3">
-                    <a th:href="@{/profesor/misCursos}" class="text-decoration-none">
+                    <a th:href="@{/cursos}" class="text-decoration-none">
                         <button type="button" class="btn btn-primary"><i
                                 class="far fa-arrow-alt-circle-left"></i> Volver a Mis Cursos
                         </button>
@@ -90,7 +94,7 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, me
                                         arrepentí
                                     </button>
-                                    <form th:action="@{/profesor/eliminarCurso}" method="post"
+                                    <form th:action="@{/cursos/eliminarCurso}" method="post"
                                           th:object="${cursoAModificar}">
                                         <input type="hidden" th:field="*{id}">
                                         <button type="submit" class="btn btn-danger">Sí, eliminar</button>

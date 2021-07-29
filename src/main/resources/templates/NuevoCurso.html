@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="fragments/fragments :: HeaderMeta"></head>
 <body>
 <!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
 <div th:replace="fragments/fragments :: navBar"></div>
 
 <div class="container">
-    <div class="row">
+    <div class="row" sec:authorize="hasRole('ROLE_ALUMNO')" th:insert="Forbidden :: Forbidden"></div>
+    <div class="row" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')">
         <div class="col-md-6 offset-3">
             <h1>Nuevo Aviso de Curso</h1>
-            <form th:action="@{/profesor/agregarCurso}" method="post" th:object="${cursoNuevo}">
+            <form th:action="@{/cursos/agregarCurso}" method="post" th:object="${cursoNuevo}">
+                <!--Control contra ataque CSRF-->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <!--Fin Control contra ataque CSRF-->
                 <input type="hidden" th:field="*{id}"/>
-                <div class="form-floating">
-                    <input class="form-control" id="idProfe" th:field="*{idUsuarioProfesor}"/>
-                    <label for="idProfe">ID Profe</label>
-                </div>
+                <input type="hidden" th:field="*{idUsuarioProfesor}" id="idProfe"/>
                 <br>
                 <div class="form-floating">
                     <input class="form-control" id="titulo" th:field="*{titulo}"/>
