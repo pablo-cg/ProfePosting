@@ -5,49 +5,48 @@
 <!--<div th:replace="fragments/topNavProfe :: navBarProfe"></div>-->
 <div th:replace="fragments/fragments :: navBar"></div>
 
-<div class="container">
+<div class="container mt-3">
     <div class="row" sec:authorize="hasRole('ROLE_ALUMNO')" th:insert="Forbidden :: Forbidden"></div>
-    <div class="row" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')">
-        <div class="col-md-6 offset-3">
-            <h1>Nuevo Aviso de Curso</h1>
-            <form th:action="@{/cursos/agregarCurso}" method="post" th:object="${cursoNuevo}">
-                <!--Control contra ataque CSRF-->
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <!--Fin Control contra ataque CSRF-->
-                <input type="hidden" th:field="*{id}"/>
-                <input type="hidden" th:field="*{idUsuarioProfesor}" id="idProfe"/>
-                <br>
-                <div class="form-floating">
-                    <input class="form-control" id="titulo" th:field="*{titulo}"/>
-                    <label for="titulo">Titulo</label>
-                </div>
-                <br>
-                <div class="form-floating">
+        <div class="card" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')">
+            <h5 class="card-header text-center display-6">Nuevo Curso</h5>
+            <div class="card-body">
+                <form th:action="@{/cursos/agregarCurso}" method="post" th:object="${cursoNuevo}">
+                    <!--Control contra ataque CSRF-->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <!--Fin Control contra ataque CSRF-->
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{idUsuarioProfesor}" id="idProfe"/>
+                    <br>
+                    <div class="form-floating">
+                        <input class="form-control" id="titulo" th:field="*{titulo}"/>
+                        <label for="titulo"><i class="fas fa-heading"></i> Titulo</label>
+                    </div>
+                    <br>
+                    <div class="form-floating">
                     <textarea class="form-control" id="detalle" style="height: 200px" maxlength="20000"
                               th:field="*{detalles}"></textarea>
-                    <label for="detalle">Detalles</label>
-                </div>
-                <br>
-                <div class="form-floating">
-                    <input class="form-control" id="contacto" th:field="*{contacto}"/>
-                    <label for="contacto">Contacto</label>
-                </div>
-                <br>
-                <div class="form-floating">
-                    <select id="areaAprendizaje" class="form-select" th:field="*{idAreaAprendizaje}" style="height: 60px">
-                        <option th:each="area: ${areas}" th:value="${area.getId()}"
-                                th:text="${area.getNombre()}"></option>
-                    </select>
-                    <label for="areaAprendizaje">Área de aprendizaje</label>
-                </div>
-                <br>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-success">Agregar Curso</button>
-                </div>
-            </form>
-
+                        <label for="detalle"><i class="fas fa-info-circle"></i> Detalles</label>
+                    </div>
+                    <br>
+                    <div class="form-floating">
+                        <input class="form-control" id="contacto" th:field="*{contacto}"/>
+                        <label for="contacto"><i class="fas fa-address-book"></i> Contacto</label>
+                    </div>
+                    <br>
+                    <div class="form-floating">
+                        <select id="areaAprendizaje" class="form-select" th:field="*{idAreaAprendizaje}" style="height: 60px">
+                            <option th:each="area: ${areas}" th:value="${area.getId()}"
+                                    th:text="${area.getNombre()}"></option>
+                        </select>
+                        <label for="areaAprendizaje"><i class="fas fa-clipboard-list"></i> Área de aprendizaje</label>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Agregar Curso</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 </div>
 <script  src="../static/js/bootstrap.min.js" th:src="@{../static/js/bootstrap.min.js}" ></script>
 </body>

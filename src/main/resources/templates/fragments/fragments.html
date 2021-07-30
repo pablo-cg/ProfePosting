@@ -17,7 +17,10 @@
         <a class="navbar-brand" href="#" th:href="@{/}">
             <img src="../static/img/profeLogo.png" th:src="@{/img/profelogo.png}" alt="" height="30"
                  class="d-inline-block align-text-top">
-            <i class="fas fa-user-graduate"></i> ProfePosting
+            <i class="fas fa-user-graduate" sec:authorize="hasRole('ROLE_ALUMNO')"></i>
+            <i class="fas fa-chalkboard-teacher" sec:authorize="hasRole('ROLE_PROFESOR')"></i>
+            <i class="fas fa-user-cog" sec:authorize="hasRole('ROLE_ADMIN')"></i>
+            ProfePosting
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

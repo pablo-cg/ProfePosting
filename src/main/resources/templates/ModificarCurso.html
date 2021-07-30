@@ -9,7 +9,7 @@
     <div class="row" sec:authorize="hasRole('ROLE_ALUMNO')" th:insert="Forbidden :: Forbidden"></div>
     <div class="row" sec:authorize="hasAnyRole('ROLE_PROFESOR','ROLE_ADMIN')">
         <div class="col-md-6">
-            <h1>Modificar Curso</h1>
+            <h1 class="text-center">Modificar Curso</h1>
             <form th:action="@{/cursos/actualizarCurso}" method="post" th:object="${cursoAModificar}">
                 <!--Control contra ataque CSRF-->
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -20,23 +20,23 @@
                     <input class="form-control disabled" id="nombreProfe"
                            th:value="${cursoAModificar.getUsuarioProfesor().getNombre() +' '+cursoAModificar.getUsuarioProfesor().getApellidoPaterno()}"
                            disabled/>
-                    <label for="nombreProfe">Profesor</label>
+                    <label for="nombreProfe"><i class="fas fa-chalkboard-teacher"></i> Profesor</label>
                 </div>
                 <br>
                 <div class="form-floating">
                     <input class="form-control" id="titulo" th:field="*{titulo}"/>
-                    <label for="titulo">Titulo</label>
+                    <label for="titulo"><i class="fas fa-heading"></i> Titulo</label>
                 </div>
                 <br>
                 <div class="form-floating">
                     <textarea class="form-control" id="detalle" rows="10" maxlength="20000"
                               th:field="*{detalles}"></textarea>
-                    <label for="detalle">Detalles</label>
+                    <label for="detalle"><i class="fas fa-info-circle"></i> Detalles</label>
                 </div>
                 <br>
                 <div class="form-floating">
                     <input class="form-control" id="contacto" th:field="*{contacto}"/>
-                    <label for="contacto">Contacto</label>
+                    <label for="contacto"><i class="fas fa-address-book"></i> Contacto</label>
                 </div>
                 <br>
                 <div class="form-floating">
@@ -44,7 +44,7 @@
                         <option th:each="area: ${areas}" th:value="${area.getId()}"
                                 th:text="${area.getNombre()}"></option>
                     </select>
-                    <label for="areaAprendizaje">Área de aprendizaje</label>
+                    <label for="areaAprendizaje"><i class="fas fa-clipboard-list"></i> Área de aprendizaje</label>
                 </div>
                 <br>
                 <div class="mb-3">
@@ -53,35 +53,34 @@
                                 class="far fa-arrow-alt-circle-left"></i> Volver a Mis Cursos
                         </button>
                     </a>
-                    <button type="submit" class="btn btn-success">Modificar Curso</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-exchange-alt"></i> Modificar Curso</button>
                 </div>
             </form>
 
         </div>
         <div class="col-md-6">
+            <p class="text-end">
+                <button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal"
+                        data-bs-target="#eliminar">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+            </p>
             <div class="card">
                 <div class="card-body">
-                    <p class="text-end">
-                        <button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal"
-                                data-bs-target="#eliminar">
-                            Eliminar
-                        </button>
-                    </p>
                     <h3 class="card-title text-center" th:text="${cursoAModificar.getTitulo()}"></h3>
                     <img th:src="@{${cursoAModificar.getAreaAprendizaje().getImgurl()}}" src="" class="card-img-top"
                          alt="profe"/>
-                    <p class="card-text" th:text="${cursoAModificar.getDetalles()}"></p>
+                    <p class="card-text"><i class="fas fa-info-circle"></i> <span th:text="${cursoAModificar.getDetalles()}"></span></p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item" th:text="${cursoAModificar.getAreaAprendizaje().getNombre()}"></li>
-                        <li class="list-group-item"
-                            th:text="${cursoAModificar.getUsuarioProfesor().getNombre() +' '+cursoAModificar.getUsuarioProfesor().getApellidoPaterno()}"></li>
+                        <li class="list-group-item"><i class="fas fa-clipboard-list"></i> <span  th:text="${cursoAModificar.getAreaAprendizaje().getNombre()}"></span></li>
+                        <li class="list-group-item"><i class="fas fa-chalkboard-teacher"></i> <span th:text="${cursoAModificar.getUsuarioProfesor().getNombre() +' '+cursoAModificar.getUsuarioProfesor().getApellidoPaterno()}"></span></li>
                     </ul>
 
                     <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="modalEliminar"
                          aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header text-center">
                                     <h5 class="modal-title" id="modalEliminar">Eliminar Curso</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -91,13 +90,13 @@
                                         th:text="${cursoAModificar.getTitulo()}"></b>?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, me
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-grin-beam-sweat"></i> No, me
                                         arrepentí
                                     </button>
                                     <form th:action="@{/cursos/eliminarCurso}" method="post"
                                           th:object="${cursoAModificar}">
                                         <input type="hidden" th:field="*{id}">
-                                        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Sí, eliminar</button>
                                     </form>
                                 </div>
                             </div>

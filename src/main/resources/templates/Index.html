@@ -6,15 +6,21 @@
 <div th:replace="fragments/fragments :: navBar"></div>
 
 <div class="container mt-3">
-    <div class="p-5 mb-4 navColor rounded-3">
+    <div class="p-5 mb-4 navColor rounded-3 row">
         <div class="container-fluid row">
             <div class="col-md-6">
                 <img src="../static/img/profeLogo.png" th:src="@{/img/profelogo.png}"
                      class="img-fluid">
             </div>
             <div class="col-md-6">
-                <h1 class="display-5 fw-bold text-light" sec:authorize="!isAuthenticated()">Hola!<i class="fas fa-smile-beam"></i><i class="fas fa-hand-peace"></i></h1>
-                <h1 class="display-5 fw-bold text-light" sec:authorize="isAuthenticated()">Bienvenido! <i class="fas fa-smile-beam"></i><i class="fas fa-hand-peace"></i> <span sec:authentication="name"></span> </h1>
+                <h1 class="display-5 fw-bold text-light text-center" sec:authorize="!isAuthenticated()">Hola!<i class="fas fa-smile-beam"></i><i class="fas fa-hand-peace"></i></h1>
+                <h1 class="display-5 fw-bold text-light text-center" sec:authorize="isAuthenticated()">Bienvenido! <i class="fas fa-smile-beam"></i><i class="fas fa-hand-peace"></i></h1>
+                <h4 class="fw-bold text-light" sec:authorize="isAuthenticated()">
+                    <span sec:authentication="name"></span>
+                    <i class="fas fa-user-graduate" sec:authorize="hasRole('ROLE_ALUMNO')"></i>
+                    <i class="fas fa-chalkboard-teacher" sec:authorize="hasRole('ROLE_PROFESOR')"></i>
+                    <i class="fas fa-user-cog" sec:authorize="hasRole('ROLE_ADMIN')"></i>
+                </h4>
                 <p class="fs-4 text-light">ProfePosting es una vitrina virtual donde podrás publicar cursos particulares y recibir comentarios y clasificaciones de tus alumnos</p>
                 <h5 class="fw-bold text-light" sec:authorize="!isAuthenticated()">Registrate o inicia sesión</h5>
                 <br>

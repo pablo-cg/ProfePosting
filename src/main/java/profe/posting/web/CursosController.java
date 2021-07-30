@@ -49,6 +49,7 @@ public class CursosController {
         }
         var cursos = Utilidades.calcularPuntuacion(cursoService.obtenerTodos());
         model.addAttribute("cursos", cursos);
+//        model.addAttribute("esDelProfe", true);
         return "Cursos";
     }
 
